@@ -12,19 +12,12 @@ import spark.Spark;
 public class MoneyTransferService {
 
 	public static void main(String[] args) {
-		Spark.get("/hello", (req, resp) -> {
-
-			return "Hello, Rohan";
-		});
-
-		Spark.get("/hello/:name", (req, resp) -> {
-			return "Hello," + req.params(":name");
-		});
 		IGenericRepository<IAccount,String> accountRepo = new AccountRepository();
 		IAccountOperationService accountOperationService = new AccountOperationService(accountRepo);
 		AccountAddRequestHandler route = new AccountAddRequestHandler(accountOperationService);
 		Spark.post("/accounts/:id", route);
 		Spark.get("/accounts/:id", route);
+		Spark.get("/accounts", route);
 		/* 1.Create Retrieval Service
 		 * 2. Create Balance Service
 		 * 3. Create Balance repo
@@ -36,6 +29,7 @@ public class MoneyTransferService {
 		 * 9. Add synschronization
 		 * 10. Add guice
 		 * 11. Add UTs
+		 * 12. Add balance to a single account after adding account
 		 */
 	}
 }
