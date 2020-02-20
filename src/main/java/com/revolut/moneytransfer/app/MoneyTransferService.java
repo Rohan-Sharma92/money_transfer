@@ -3,7 +3,7 @@ package com.revolut.moneytransfer.app;
 import com.revolut.moneytransfer.handlers.AccountAddRequestHandler;
 import com.revolut.moneytransfer.model.IAccount;
 import com.revolut.moneytransfer.repo.IGenericRepository;
-import com.revolut.moneytransfer.repo.impl.AccountRepository;
+import com.revolut.moneytransfer.repo.impl.GenericRepository;
 import com.revolut.moneytransfer.services.IAccountOperationService;
 import com.revolut.moneytransfer.services.impl.AccountOperationService;
 
@@ -12,7 +12,7 @@ import spark.Spark;
 public class MoneyTransferService {
 
 	public static void main(String[] args) {
-		IGenericRepository<IAccount,String> accountRepo = new AccountRepository();
+		IGenericRepository<IAccount,String> accountRepo = new GenericRepository<>();
 		IAccountOperationService accountOperationService = new AccountOperationService(accountRepo);
 		AccountAddRequestHandler route = new AccountAddRequestHandler(accountOperationService);
 		Spark.post("/accounts/:id", route);
