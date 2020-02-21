@@ -10,5 +10,5 @@ public interface IGenericRepository<T,Y> {
 	
 	void addRecord(T record);
 	
-	void removeRecord(Y id);
+	T removeRecord(Y id);
 }

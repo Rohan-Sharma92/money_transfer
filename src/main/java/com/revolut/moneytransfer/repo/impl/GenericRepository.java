@@ -28,8 +28,8 @@ public class GenericRepository<T extends Identifiable<Y>, Y> implements IGeneric
 	}
 
 	@Override
-	public void removeRecord(Y id) {
-		cache.remove(id);
+	public T removeRecord(Y id) {
+		return cache.remove(id);
 	}
 
 }
