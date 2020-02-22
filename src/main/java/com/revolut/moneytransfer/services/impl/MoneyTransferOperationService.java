@@ -27,7 +27,6 @@ public class MoneyTransferOperationService implements IMoneyTransferOperationSer
 
 	@Override
 	public StandardResponse addAmount(IAccount account, BigDecimal amount, Currency currency) {
-		// TODO
 		/*
 		 * 1. Add validation 2. add amount logic 3. update balance and send response
 		 */
@@ -48,7 +47,6 @@ public class MoneyTransferOperationService implements IMoneyTransferOperationSer
 	@Override
 	public StandardResponse transferAmount(IAccount creditAccount, IAccount debitAccount, BigDecimal amount,
 			Currency currency) {
-		// TODO
 		/*
 		 * 1. Add validation 2. transfer amount logic 3. update balance and send
 		 * response
