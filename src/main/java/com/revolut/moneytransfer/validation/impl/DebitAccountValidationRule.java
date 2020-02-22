@@ -1,4 +1,4 @@
-package com.revolut.moneytransfer.validation;
+package com.revolut.moneytransfer.validation.impl;
 
 import javax.inject.Inject;
 

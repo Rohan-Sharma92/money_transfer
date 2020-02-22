@@ -19,13 +19,13 @@ import com.revolut.moneytransfer.services.IAccountOperationService;
 import com.revolut.moneytransfer.services.IMoneyTransferOperationService;
 import com.revolut.moneytransfer.services.impl.AccountOperationService;
 import com.revolut.moneytransfer.services.impl.MoneyTransferOperationService;
-import com.revolut.moneytransfer.validation.AccountValidationRule;
-import com.revolut.moneytransfer.validation.AmountValidationRule;
-import com.revolut.moneytransfer.validation.DebitAccountBalanceValidationRule;
-import com.revolut.moneytransfer.validation.DebitAccountValidationRule;
 import com.revolut.moneytransfer.validation.IValidationRule;
 import com.revolut.moneytransfer.validation.IValidationRuleEngine;
-import com.revolut.moneytransfer.validation.ValidationRuleEngine;
+import com.revolut.moneytransfer.validation.impl.AccountValidationRule;
+import com.revolut.moneytransfer.validation.impl.AmountValidationRule;
+import com.revolut.moneytransfer.validation.impl.DebitAccountBalanceValidationRule;
+import com.revolut.moneytransfer.validation.impl.DebitAccountValidationRule;
+import com.revolut.moneytransfer.validation.impl.ValidationRuleEngine;
 
 public class MoneyTransferModule extends AbstractModule {
 

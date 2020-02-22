@@ -1,4 +1,4 @@
-package com.revolut.moneytransfer.validation;
+package com.revolut.moneytransfer.validation.impl;
 
 import java.math.BigDecimal;
 import java.util.Map;
@@ -11,6 +11,7 @@ import com.revolut.moneytransfer.model.Currency;
 import com.revolut.moneytransfer.model.IBalance;
 import com.revolut.moneytransfer.repo.IGenericRepository;
 import com.revolut.moneytransfer.util.MoneyTransferUtil;
+import com.revolut.moneytransfer.validation.IValidationRule;
 
 public class DebitAccountBalanceValidationRule implements IValidationRule {
 

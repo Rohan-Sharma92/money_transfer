@@ -1,4 +1,4 @@
-package com.revolut.moneytransfer.validation;
+package com.revolut.moneytransfer.validation.impl;
 
 import java.util.Map;
 
@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import com.revolut.moneytransfer.model.IAccount;
 import com.revolut.moneytransfer.repo.IGenericRepository;
+import com.revolut.moneytransfer.validation.IValidationRule;
 
 public class AccountValidationRule implements IValidationRule {
 
@@ -34,7 +35,7 @@ public class AccountValidationRule implements IValidationRule {
 	@Override
 	public String getErrorMessage() {
 		StringBuilder builder = new StringBuilder();
-		builder.append(fieldName).append("is invalid.");
+		builder.append(fieldName).append(" is invalid.");
 		return builder.toString();
 	}
 

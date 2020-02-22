@@ -1,7 +1,9 @@
-package com.revolut.moneytransfer.validation;
+package com.revolut.moneytransfer.validation.impl;
 
 import java.math.BigDecimal;
 import java.util.Map;
+
+import com.revolut.moneytransfer.validation.IValidationRule;
 
 public class AmountValidationRule implements IValidationRule {
 
@@ -20,7 +22,7 @@ public class AmountValidationRule implements IValidationRule {
 	@Override
 	public String getErrorMessage() {
 		StringBuilder builder = new StringBuilder();
-		builder.append(AMOUNT).append("is invalid.");
+		builder.append(AMOUNT).append(" is invalid.");
 		return builder.toString();
 	}
 

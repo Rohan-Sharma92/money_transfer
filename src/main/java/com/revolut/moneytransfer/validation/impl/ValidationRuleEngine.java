@@ -1,9 +1,12 @@
-package com.revolut.moneytransfer.validation;
+package com.revolut.moneytransfer.validation.impl;
 
 import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+
+import com.revolut.moneytransfer.validation.IValidationRule;
+import com.revolut.moneytransfer.validation.IValidationRuleEngine;
 
 public class ValidationRuleEngine implements IValidationRuleEngine {
 
