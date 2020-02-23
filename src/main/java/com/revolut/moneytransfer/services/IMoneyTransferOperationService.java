@@ -12,4 +12,6 @@ public interface IMoneyTransferOperationService {
 
 	StandardResponse transferAmount(IAccount creditAccount, IAccount debitAccount, BigDecimal amount,
 			Currency currency);
+
+	StandardResponse retrieveBalance(IAccount account);
 }

@@ -34,16 +34,29 @@ public class WalletRequestHandler implements Route {
 	@Override
 	public Object handle(Request request, Response response) throws Exception {
 		response.type("application/json");
-		Map<String, Object> requestMap = new Gson().fromJson(request.body(), Map.class);
-		String validateMessage = validationRuleEngine.validate(requestMap);
-		if (StringUtils.isEmpty(validateMessage)) {
-			WalletRequestWrapper walletDetails = new Gson().fromJson(request.body(), WalletRequestWrapper.class);
-			IAccount account = accountRepo.findById(walletDetails.getAccountId());
-			StandardResponse standardResponse = moneyTransferOperationService.addAmount(account,
-					walletDetails.getAmount(), walletDetails.getCurrency());
-			return new Gson().toJson(standardResponse);
+		String requestMethod = request.requestMethod();
+		switch (requestMethod) {
+		case "POST":
+			Map<String, Object> requestMap = new Gson().fromJson(request.body(), Map.class);
+			String validateMessage = validationRuleEngine.validate(requestMap);
+			if (StringUtils.isEmpty(validateMessage)) {
+				WalletRequestWrapper walletDetails = new Gson().fromJson(request.body(), WalletRequestWrapper.class);
+				IAccount account = accountRepo.findById(walletDetails.getAccountId());
+				StandardResponse standardResponse = moneyTransferOperationService.addAmount(account,
+						walletDetails.getAmount(), walletDetails.getCurrency());
+				return new Gson().toJson(standardResponse);
+			}
+			return new Gson().toJson(new StandardResponse(StatusResponse.ERROR, validateMessage));
+		case "GET":
+			String accountId = request.params("id");
+			IAccount account = accountRepo.findById(accountId);
+			if (account == null) {
+				return new Gson().toJson(new StandardResponse(StatusResponse.ERROR));
+			}
+			return new Gson().toJson(moneyTransferOperationService.retrieveBalance(account));
+		default:
+			return null;
 		}
-		return new Gson().toJson(new StandardResponse(StatusResponse.ERROR, validateMessage));
 	}
 
 }

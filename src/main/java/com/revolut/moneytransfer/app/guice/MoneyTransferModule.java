@@ -13,7 +13,9 @@ import com.revolut.moneytransfer.handlers.MoneyTransferRequestHandler;
 import com.revolut.moneytransfer.handlers.WalletRequestHandler;
 import com.revolut.moneytransfer.model.IAccount;
 import com.revolut.moneytransfer.model.IBalance;
+import com.revolut.moneytransfer.repo.IBalanceRepository;
 import com.revolut.moneytransfer.repo.IGenericRepository;
+import com.revolut.moneytransfer.repo.impl.BalanceRepository;
 import com.revolut.moneytransfer.repo.impl.GenericRepository;
 import com.revolut.moneytransfer.services.IAccountOperationService;
 import com.revolut.moneytransfer.services.IMoneyTransferOperationService;
@@ -34,9 +36,7 @@ public class MoneyTransferModule extends AbstractModule {
 		bind(new TypeLiteral<IGenericRepository<IAccount, String>>() {
 		}).to(new TypeLiteral<GenericRepository<IAccount, String>>() {
 		}).in(Scopes.SINGLETON);
-		bind(new TypeLiteral<IGenericRepository<IBalance, String>>() {
-		}).to(new TypeLiteral<GenericRepository<IBalance, String>>() {
-		}).in(Scopes.SINGLETON);
+		bind(IBalanceRepository.class).to(BalanceRepository.class).in(Scopes.SINGLETON);
 		bind(IAccountOperationService.class).to(AccountOperationService.class).in(Scopes.SINGLETON);
 		bind(IMoneyTransferOperationService.class).to(MoneyTransferOperationService.class).in(Scopes.SINGLETON);
 		bind(AccountRequestHandler.class).in(Scopes.SINGLETON);

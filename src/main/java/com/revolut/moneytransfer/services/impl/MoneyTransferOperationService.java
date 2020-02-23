@@ -12,16 +12,16 @@ import com.revolut.moneytransfer.model.Currency;
 import com.revolut.moneytransfer.model.IAccount;
 import com.revolut.moneytransfer.model.IBalance;
 import com.revolut.moneytransfer.model.impl.Balance;
-import com.revolut.moneytransfer.repo.IGenericRepository;
+import com.revolut.moneytransfer.repo.IBalanceRepository;
 import com.revolut.moneytransfer.services.IMoneyTransferOperationService;
 import com.revolut.moneytransfer.util.MoneyTransferUtil;
 
 public class MoneyTransferOperationService implements IMoneyTransferOperationService {
 
-	private final IGenericRepository<IBalance, String> balanceCache;
+	private final IBalanceRepository balanceCache;
 
 	@Inject
-	public MoneyTransferOperationService(final IGenericRepository<IBalance, String> balanceCache) {
+	public MoneyTransferOperationService(final IBalanceRepository balanceCache) {
 		this.balanceCache = balanceCache;
 	}
 
@@ -67,6 +67,12 @@ public class MoneyTransferOperationService implements IMoneyTransferOperationSer
 		}
 		return new StandardResponse(StatusResponse.SUCCESS, "0:0k",
 				new Gson().toJsonTree(Lists.newArrayList(debitBalance, creditBalance)));
+	}
+
+	@Override
+	public StandardResponse retrieveBalance(IAccount account) {
+		return new StandardResponse(StatusResponse.SUCCESS, "0:0k",
+				new Gson().toJsonTree(balanceCache.retrieveAccountBalance(account.getId())));
 	}
 
 }

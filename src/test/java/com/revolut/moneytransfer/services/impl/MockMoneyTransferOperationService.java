@@ -38,4 +38,9 @@ public class MockMoneyTransferOperationService implements IMoneyTransferOperatio
 		return isTransferAmountInvoked;
 	}
 
+	@Override
+	public StandardResponse retrieveBalance(IAccount account) {
+		return response;
+	}
+
 }
