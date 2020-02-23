@@ -14,13 +14,13 @@ public class MoneyTransferService {
 
 	public static void main(String[] args) {
 		Injector injector = Guice.createInjector(new MoneyTransferModule());
-		AccountRequestHandler route = injector.getInstance(AccountRequestHandler.class);
+		AccountRequestHandler accountRequestHandler = injector.getInstance(AccountRequestHandler.class);
 		WalletRequestHandler walletRequestHandler = injector.getInstance(WalletRequestHandler.class);
 		MoneyTransferRequestHandler moneyTransferRequestHandler = injector
 				.getInstance(MoneyTransferRequestHandler.class);
-		Spark.post(Constants.INDIVIDUAL_ACCOUNT_PATHNAME, route);
-		Spark.get(Constants.INDIVIDUAL_ACCOUNT_PATHNAME, route);
-		Spark.get(Constants.ACCOUNTS_PATHNAME, route);
+		Spark.post(Constants.INDIVIDUAL_ACCOUNT_PATHNAME, accountRequestHandler);
+		Spark.get(Constants.INDIVIDUAL_ACCOUNT_PATHNAME, accountRequestHandler);
+		Spark.get(Constants.ACCOUNTS_PATHNAME, accountRequestHandler);
 		Spark.post(Constants.WALLET_PATHNAME, walletRequestHandler);
 		Spark.get(Constants.WALLET_BALANCE_PATHNAME, walletRequestHandler);
 		Spark.post(Constants.TRANSFER_PATH_NAME, moneyTransferRequestHandler);
