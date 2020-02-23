@@ -9,7 +9,7 @@
 - JUnit 4.12
 
 ## How to run
-- java -jar ".\target\money_transfer-0.0.1-SNAPSHOT.jar"
+- java -jar "money_transfer-0.0.1-SNAPSHOT.jar"
 
 ## JSON Request Examples
 - Account Add :
