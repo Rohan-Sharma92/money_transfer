@@ -9,7 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.revolut.moneytransfer.model.Currency;
 import com.revolut.moneytransfer.model.IBalance;
-import com.revolut.moneytransfer.repo.IGenericRepository;
+import com.revolut.moneytransfer.repo.IBalanceRepository;
 import com.revolut.moneytransfer.util.MoneyTransferUtil;
 import com.revolut.moneytransfer.validation.IValidationRule;
 
@@ -18,11 +18,11 @@ public class DebitAccountBalanceValidationRule implements IValidationRule {
 	private static final String CURRENCY = "currency";
 	private static final String AMOUNT = "amount";
 	private static final String DEBIT_ACCOUNT = "debitAccount";
-	private final IGenericRepository<IBalance, String> balanceCache;
+	private final IBalanceRepository balanceCache;
 	private String errorMessage = StringUtils.EMPTY;
 
 	@Inject
-	public DebitAccountBalanceValidationRule(final IGenericRepository<IBalance, String> balanceCache) {
+	public DebitAccountBalanceValidationRule(final IBalanceRepository balanceCache) {
 		this.balanceCache = balanceCache;
 	}
 
