@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.revolut.moneytransfer.model.IAccount;
 import com.revolut.moneytransfer.model.impl.Account;
 import com.revolut.moneytransfer.services.IAccountOperationService;
+import com.revolut.moneytransfer.util.Constants;
 
 import spark.Request;
 import spark.Response;
@@ -25,11 +26,11 @@ public class AccountRequestHandler implements Route {
 		response.type("application/json");
 		String requestMethod = request.requestMethod();
 		switch (requestMethod) {
-		case "POST":
+		case Constants.POST:
 			IAccount account = new Gson().fromJson(request.body(), Account.class);
 			StandardResponse standardResponse = accountOperationService.addAccount(account);
 			return new Gson().toJson(standardResponse);
-		case "GET":
+		case Constants.GET:
 			return processRetrieval(request, response);
 		default:
 			return null;
@@ -38,7 +39,7 @@ public class AccountRequestHandler implements Route {
 	}
 
 	private Object processRetrieval(Request request, Response response) {
-		String params = request.params("id");
+		String params = request.params(Constants.ID_PARAM);
 		if (params == null) {
 			return new Gson().toJson(accountOperationService.retrieveAccounts());
 		}

@@ -1,8 +1,8 @@
 package com.revolut.moneytransfer.repo.impl;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import com.google.common.collect.Lists;
 import com.revolut.moneytransfer.model.Identifiable;
@@ -10,7 +10,7 @@ import com.revolut.moneytransfer.repo.IGenericRepository;
 
 public class GenericRepository<T extends Identifiable<Y>, Y> implements IGenericRepository<T, Y> {
 
-	private final Map<Y, T> cache = new HashMap<>();
+	private final Map<Y, T> cache = new ConcurrentHashMap<>();
 
 	@Override
 	public T findById(Y id) {

@@ -14,6 +14,7 @@ import com.revolut.moneytransfer.model.IBalance;
 import com.revolut.moneytransfer.model.impl.Balance;
 import com.revolut.moneytransfer.repo.IBalanceRepository;
 import com.revolut.moneytransfer.services.IMoneyTransferOperationService;
+import com.revolut.moneytransfer.util.Constants;
 import com.revolut.moneytransfer.util.MoneyTransferUtil;
 
 public class MoneyTransferOperationService implements IMoneyTransferOperationService {
@@ -27,30 +28,29 @@ public class MoneyTransferOperationService implements IMoneyTransferOperationSer
 
 	@Override
 	public StandardResponse addAmount(IAccount account, BigDecimal amount, Currency currency) {
-		/*
-		 * 1. Add validation 2. add amount logic 3. update balance and send response
-		 */
 		IBalance balance = balanceCache.findById(MoneyTransferUtil.generateBalanceKey(account.getId(), currency));
 		if (balance == null) {
-			balance = new Balance();
-			balance.setId(MoneyTransferUtil.generateBalanceKey(account.getId(), currency));
-			balance.setAccountId(account.getId());
-			balance.setAmount(amount);
-			balance.setCurrency(currency);
+			balance = generateBalance(account, amount, currency);
 			balanceCache.addRecord(balance);
 		} else {
 			balance.setAmount(balance.getAmount().add(amount));
 		}
-		return new StandardResponse(StatusResponse.SUCCESS, "0:0k", new Gson().toJsonTree(balance));
+		return new StandardResponse(StatusResponse.SUCCESS, Constants.SUCCESS_CODE, new Gson().toJsonTree(balance));
+	}
+
+	private IBalance generateBalance(IAccount account, BigDecimal amount, Currency currency) {
+		IBalance balance;
+		balance = new Balance();
+		balance.setId(MoneyTransferUtil.generateBalanceKey(account.getId(), currency));
+		balance.setAccountId(account.getId());
+		balance.setAmount(amount);
+		balance.setCurrency(currency);
+		return balance;
 	}
 
 	@Override
 	public StandardResponse transferAmount(IAccount creditAccount, IAccount debitAccount, BigDecimal amount,
 			Currency currency) {
-		/*
-		 * 1. Add validation 2. transfer amount logic 3. update balance and send
-		 * response
-		 */
 		IBalance debitBalance = balanceCache
 				.findById(MoneyTransferUtil.generateBalanceKey(debitAccount.getId(), currency));
 		BigDecimal expectedDebitBalance = debitBalance.getAmount().subtract(amount);
@@ -65,13 +65,13 @@ public class MoneyTransferOperationService implements IMoneyTransferOperationSer
 			creditBalance = balanceCache
 					.findById(MoneyTransferUtil.generateBalanceKey(creditAccount.getId(), currency));
 		}
-		return new StandardResponse(StatusResponse.SUCCESS, "0:0k",
+		return new StandardResponse(StatusResponse.SUCCESS, Constants.SUCCESS_CODE,
 				new Gson().toJsonTree(Lists.newArrayList(debitBalance, creditBalance)));
 	}
 
 	@Override
 	public StandardResponse retrieveBalance(IAccount account) {
-		return new StandardResponse(StatusResponse.SUCCESS, "0:0k",
+		return new StandardResponse(StatusResponse.SUCCESS, Constants.SUCCESS_CODE,
 				new Gson().toJsonTree(balanceCache.retrieveAccountBalance(account.getId())));
 	}
 

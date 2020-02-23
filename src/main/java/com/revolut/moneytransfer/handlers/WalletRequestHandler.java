@@ -11,6 +11,7 @@ import com.revolut.moneytransfer.model.IAccount;
 import com.revolut.moneytransfer.repo.IGenericRepository;
 import com.revolut.moneytransfer.requestwrappers.WalletRequestWrapper;
 import com.revolut.moneytransfer.services.IMoneyTransferOperationService;
+import com.revolut.moneytransfer.util.Constants;
 import com.revolut.moneytransfer.validation.IValidationRuleEngine;
 
 import spark.Request;
@@ -19,6 +20,7 @@ import spark.Route;
 
 public class WalletRequestHandler implements Route {
 
+	private static final String INVALID_ACCOUNT_MSG = "Invalid account";
 	private final IMoneyTransferOperationService moneyTransferOperationService;
 	private final IGenericRepository<IAccount, String> accountRepo;
 	private final IValidationRuleEngine validationRuleEngine;
@@ -36,7 +38,7 @@ public class WalletRequestHandler implements Route {
 		response.type("application/json");
 		String requestMethod = request.requestMethod();
 		switch (requestMethod) {
-		case "POST":
+		case Constants.POST:
 			Map<String, Object> requestMap = new Gson().fromJson(request.body(), Map.class);
 			String validateMessage = validationRuleEngine.validate(requestMap);
 			if (StringUtils.isEmpty(validateMessage)) {
@@ -47,11 +49,11 @@ public class WalletRequestHandler implements Route {
 				return new Gson().toJson(standardResponse);
 			}
 			return new Gson().toJson(new StandardResponse(StatusResponse.ERROR, validateMessage));
-		case "GET":
-			String accountId = request.params("id");
+		case Constants.GET:
+			String accountId = request.params(Constants.ACCOUNT_ID_PARAM);
 			IAccount account = accountRepo.findById(accountId);
 			if (account == null) {
-				return new Gson().toJson(new StandardResponse(StatusResponse.ERROR));
+				return new Gson().toJson(new StandardResponse(StatusResponse.ERROR, INVALID_ACCOUNT_MSG));
 			}
 			return new Gson().toJson(moneyTransferOperationService.retrieveBalance(account));
 		default:

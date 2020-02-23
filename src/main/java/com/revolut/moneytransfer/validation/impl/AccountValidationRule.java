@@ -6,17 +6,17 @@ import javax.inject.Inject;
 
 import com.revolut.moneytransfer.model.IAccount;
 import com.revolut.moneytransfer.repo.IGenericRepository;
+import com.revolut.moneytransfer.util.Constants;
 import com.revolut.moneytransfer.validation.IValidationRule;
 
 public class AccountValidationRule implements IValidationRule {
 
-	private static final String ACCOUNT_ID = "accountId";
 	private final IGenericRepository<IAccount, String> accountRepo;
 	private final String fieldName;
 
 	@Inject
 	public AccountValidationRule(final IGenericRepository<IAccount, String> accountRepo) {
-		this(ACCOUNT_ID, accountRepo);
+		this(Constants.ACCOUNT_ID_PARAM, accountRepo);
 	}
 
 	public AccountValidationRule(final String fieldName, final IGenericRepository<IAccount, String> accountRepo) {
@@ -35,7 +35,7 @@ public class AccountValidationRule implements IValidationRule {
 	@Override
 	public String getErrorMessage() {
 		StringBuilder builder = new StringBuilder();
-		builder.append(fieldName).append(" is invalid.");
+		builder.append(fieldName).append(Constants.IS_INVALID);
 		return builder.toString();
 	}
 

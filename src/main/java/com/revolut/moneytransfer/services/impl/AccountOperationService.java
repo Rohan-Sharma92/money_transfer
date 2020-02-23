@@ -10,6 +10,7 @@ import com.revolut.moneytransfer.handlers.StatusResponse;
 import com.revolut.moneytransfer.model.IAccount;
 import com.revolut.moneytransfer.repo.IGenericRepository;
 import com.revolut.moneytransfer.services.IAccountOperationService;
+import com.revolut.moneytransfer.util.Constants;
 
 public class AccountOperationService implements IAccountOperationService {
 
@@ -23,13 +24,14 @@ public class AccountOperationService implements IAccountOperationService {
 	@Override
 	public StandardResponse addAccount(final IAccount account) {
 		accountRepo.addRecord(account);
-		return new StandardResponse(StatusResponse.SUCCESS, "0:0k", new Gson().toJsonTree(account));
+		return new StandardResponse(StatusResponse.SUCCESS, Constants.SUCCESS_CODE, new Gson().toJsonTree(account));
 	}
 
 	@Override
 	public StandardResponse removeAccount(final String id) {
 		IAccount removeRecord = accountRepo.removeRecord(id);
-		return new StandardResponse(StatusResponse.SUCCESS, "0:0k", new Gson().toJsonTree(removeRecord));
+		return new StandardResponse(StatusResponse.SUCCESS, Constants.SUCCESS_CODE,
+				new Gson().toJsonTree(removeRecord));
 	}
 
 	@Override
@@ -38,13 +40,13 @@ public class AccountOperationService implements IAccountOperationService {
 		if (account == null) {
 			return new StandardResponse(StatusResponse.ERROR);
 		}
-		return new StandardResponse(StatusResponse.SUCCESS, "0:0k", new Gson().toJsonTree(account));
+		return new StandardResponse(StatusResponse.SUCCESS, Constants.SUCCESS_CODE, new Gson().toJsonTree(account));
 	}
 
 	@Override
 	public StandardResponse retrieveAccounts() {
 		List<IAccount> accounts = accountRepo.findAll();
-		return new StandardResponse(StatusResponse.SUCCESS, "0:0k", new Gson().toJsonTree(accounts));
+		return new StandardResponse(StatusResponse.SUCCESS, Constants.SUCCESS_CODE, new Gson().toJsonTree(accounts));
 	}
 
 }
