@@ -90,7 +90,7 @@ public class WalletRequestHandlerTest {
 		balance.setCurrency(Currency.EUR);
 		balance.setId(MoneyTransferUtil.generateBalanceKey(account.getId(), Currency.EUR));
 		Mockito.when(request.requestMethod()).thenReturn("GET");
-		Mockito.when(request.params("id")).thenReturn(account.getId());
+		Mockito.when(request.params("accountId")).thenReturn(account.getId());
 		StandardResponse standardResponse = new StandardResponse(StatusResponse.SUCCESS, "0:Ok",
 				new Gson().toJsonTree(balance));
 		mockService.setExpectedResponse(standardResponse);
