@@ -44,7 +44,7 @@ public class MoneyTransferRequestHandler implements Route {
 					debitAccount, transferDetails.getAmount(), transferDetails.getCurrency());
 			return new Gson().toJson(standardResponse);
 		}
-		return new Gson().toJson(new StandardResponse(StatusResponse.ERROR, validateMessage));
+		return new Gson().toJson(new StandardResponse(StatusResponse.ERROR,validateMessage));
 	}
 
 }
